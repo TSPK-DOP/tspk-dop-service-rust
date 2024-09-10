@@ -5,133 +5,156 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Современные анимации и параллакс</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      overflow-x: hidden;
-    }
-
-    /* Параллакс для фона */
-    .parallax {
-      background-image: url('/static/image/test.jpg');
-      height: 100vh;
-      background-attachment: fixed;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: relative;
-    }
-
-    /* Блок с анимацией размытия */
-    .blur-section {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #333;
-    }
-
-    .blur-section img {
-      width: 400px;
-      height: auto;
-      border-radius: 20px;
-      filter: blur(0);
-      transition: filter 1s ease, transform 1s ease;
-    }
-
-    .blur-section img:hover {
-      filter: blur(5px);
-      transform: scale(1.2);
-    }
-
-    /* Параллакс для второго изображения с эффектом 3D переворота */
-    .parallax-flip {
-      perspective: 1000px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #282828;
-    }
-
-    .flip-card {
-      width: 300px;
-      height: 400px;
-      transform-style: preserve-3d;
-      transition: transform 1s ease-in-out;
-      position: relative;
-    }
-
-    .flip-card:hover {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card img {
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-      backface-visibility: hidden;
-      position: absolute;
-    }
-
-    /* Фон для задней стороны карты */
-    .flip-card .back {
-      background-color: #007BFF;
-      transform: rotateY(180deg);
-    }
-
-    /* Анимация при скролле */
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Анимированное изображение при скролле */
-    .scroll-animation {
-      display: flex;
-      justify-content: center;
-      padding: 50px 0;
-    }
-
-    .scroll-animation img {
-      width: 300px;
-      height: 200px;
-      border-radius: 10px;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    overflow-x: hidden;
+  }
+  
+  /* Параллакс для фона */
+  .parallax {
+    background-image: url('/static/image/test.jpg');
+    height: 100vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  /* Блок с анимацией размытия */
+  .blur-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+  }
+  
+  .blur-section img {
+    width: 400px;
+    height: auto;
+    border-radius: 20px;
+    filter: blur(0);
+    transition: filter 1s ease, transform 1s ease;
+  }
+  
+  .blur-section img:hover {
+    filter: blur(5px);
+    transform: scale(1.2);
+  }
+  
+  /* Параллакс для второго изображения с эффектом 3D переворота */
+  .parallax-flip {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #282828;
+  }
+  
+  .flip-card {
+    width: 300px;
+    height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out;
+    position: relative;
+  }
+  
+  .flip-card:hover {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    position: absolute;
+  }
+  
+  /* Фон для задней стороны карты */
+  .flip-card .back {
+    background-color: #007BFF;
+    transform: rotateY(180deg);
+  }
+  
+  /* Анимация при скролле */
+  @keyframes fadeInUp {
+    0% {
       opacity: 0;
-      animation: fadeInUp 2s ease forwards;
+      transform: translateY(50px);
     }
-
-    .scroll-animation img:nth-child(2) {
-      animation-delay: 1s;
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
-
-    .scroll-animation img:nth-child(3) {
-      animation-delay: 2s;
+  }
+  
+  /* Анимированное изображение при скролле */
+  .scroll-animation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+  }
+  
+  .scroll-animation img {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fadeInUp 2s ease forwards;
+  }
+  
+  .scroll-animation img:nth-child(2) {
+    animation-delay: 1s;
+  }
+  
+  .scroll-animation img:nth-child(3) {
+    animation-delay: 2s;
+  }
+  
+  /* Адаптивность */
+  @media (max-width: 768px) {
+    .parallax {
+      height: 70vh; /* Уменьшена высота для мобильных устройств */
     }
-
-    /* Адаптивность */
-    @media (max-width: 768px) {
-      .blur-section img {
-        width: 90%;
-      }
-
-      .flip-card {
-        width: 90%;
-        height: 300px;
-      }
+  
+    .blur-section {
+      height: 60vh; /* Уменьшена высота для мобильных устройств */
     }
+  
+    .blur-section img {
+      width: 90%;
+    }
+  
+    .parallax-flip {
+      height: 60vh; /* Уменьшена высота для мобильных устройств */
+    }
+  
+    .flip-card {
+      width: 80%;
+      height: 250px; /* Уменьшена высота для мобильных устройств */
+    }
+  
+    .scroll-animation {
+      padding: 30px 0; /* Уменьшены отступы для мобильных устройств */
+    }
+  
+    .scroll-animation img {
+      width: 90%;
+      max-width: none;
+    }
+  }
+
   </style>
 </head>
 <body>
