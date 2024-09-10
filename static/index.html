@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Современные анимации и параллакс</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      overflow-x: hidden;
+    }
+
+    /* Параллакс для фона */
+    .parallax {
+      background-image: url('/static/image/test.jpg');
+      height: 100vh;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Блок с анимацией размытия */
+    .blur-section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #333;
+    }
+
+    .blur-section img {
+      width: 400px;
+      height: auto;
+      border-radius: 20px;
+      filter: blur(0);
+      transition: filter 1s ease, transform 1s ease;
+    }
+
+    .blur-section img:hover {
+      filter: blur(5px);
+      transform: scale(1.2);
+    }
+
+    /* Параллакс для второго изображения с эффектом 3D переворота */
+    .parallax-flip {
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #282828;
+    }
+
+    .flip-card {
+      width: 300px;
+      height: 400px;
+      transform-style: preserve-3d;
+      transition: transform 1s ease-in-out;
+      position: relative;
+    }
+
+    .flip-card:hover {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card img {
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      backface-visibility: hidden;
+      position: absolute;
+    }
+
+    /* Фон для задней стороны карты */
+    .flip-card .back {
+      background-color: #007BFF;
+      transform: rotateY(180deg);
+    }
+
+    /* Анимация при скролле */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Анимированное изображение при скролле */
+    .scroll-animation {
+      display: flex;
+      justify-content: center;
+      padding: 50px 0;
+    }
+
+    .scroll-animation img {
+      width: 300px;
+      height: 200px;
+      border-radius: 10px;
+      opacity: 0;
+      animation: fadeInUp 2s ease forwards;
+    }
+
+    .scroll-animation img:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .scroll-animation img:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+      .blur-section img {
+        width: 90%;
+      }
+
+      .flip-card {
+        width: 90%;
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Параллакс фон -->
+  <div class="parallax"></div>
+
+  <!-- Блок с эффектом размытия -->
+  <div class="blur-section">
+    <img src="/static/image/test.jpg" alt="Эффект размытия">
+  </div>
+
+  <!-- Блок с эффектом параллакса и 3D переворота -->
+  <div class="parallax-flip">
+    <div class="flip-card">
+      <img src="/static/image/test.jpg" alt="Передняя сторона">
+      <div class="back"></div>
+    </div>
+  </div>
+
+  <!-- Анимация при скролле -->
+  <div class="scroll-animation">
+    <img src="/static/image/test.jpg" alt="Изображение 1">
+    <img src="/static/image/test.jpg" alt="Изображение 2">
+    <img src="/static/image/test.jpg" alt="Изображение 3">
+  </div>
+
+</body>
+</html>
