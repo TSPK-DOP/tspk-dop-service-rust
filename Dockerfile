@@ -19,4 +19,4 @@ COPY --from=builder /usr/src/app/target/x86_64-pc-windows-gnu/release/rusty-chat
 
 EXPOSE 8080
 
-# CMD ["/usr/local/bin/rusty-chat"]
+CMD ["/usr/local/bin/rusty-chat"]
