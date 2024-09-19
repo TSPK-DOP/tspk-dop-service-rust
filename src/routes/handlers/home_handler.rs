@@ -1,6 +1,8 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use actix_files::NamedFile;
 
+use crate::utils::api_response;
+
 #[get("/")]
 pub async fn hello() -> impl Responder {
     NamedFile::open("static/index.html")
@@ -14,5 +16,5 @@ pub async fn echo(req_body: String) -> impl Responder {
 
 #[get("/goodbye")]
 pub async fn bye() -> impl Responder {
-    HttpResponse::Ok().body("goodbye")
+    api_response::ApiResponse::new(42342, "BYE".to_string())
 }
