@@ -17,6 +17,6 @@ FROM rust:alpine3.17
 
 COPY --from=builder /usr/src/app/target/x86_64-pc-windows-gnu/release/rusty-chat.exe /usr/local/bin/rusty-chat.exe
 
-EXPOSE 8080
+EXPOSE 8001
 
 CMD ["/usr/local/bin/rusty-chat"]
