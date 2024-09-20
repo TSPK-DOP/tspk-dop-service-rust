@@ -1,4 +1,4 @@
-use actix_web::{middleware::Logger, web, App, HttpServer};
+    use actix_web::{middleware::Logger, web, App, HttpServer};
 use routes::handlers;
 use sea_orm::{Database, DatabaseConnection};
 use utils::app_state::AppState;
