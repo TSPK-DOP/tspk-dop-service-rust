@@ -1,22 +1,30 @@
-FROM rust:1.74.0 as builder
+# Мультиэтапная сборка для минимального образа
+# Этап 1: Сборка приложения
+FROM rust:1.74 as builder
 
-RUN apt-get update && apt-get install -y \
-    mingw-w64 \
-    gcc-mingw-w64-x86-64 \
-    && rm -rf /var/lib/apt/lists/*
-
+# Устанавливаем рабочую директорию
 WORKDIR /usr/src/app
 
+# Копируем Cargo.toml и Cargo.lock для кэширования зависимостей
+COPY Cargo.toml Cargo.lock ./
 
+# Устанавливаем зависимости
+RUN cargo fetch
+
+# Копируем исходный код
 COPY . .
-RUN rustup target add x86_64-pc-windows-gnu
 
-RUN cargo build --release --target x86_64-pc-windows-gnu
+# Сборка релизного бинарного файла
+RUN cargo build --release
 
-FROM rust:alpine3.17
+# Этап 2: Минимальный образ с бинарником
+FROM debian:buster-slim
 
-COPY --from=builder /usr/src/app/target/x86_64-pc-windows-gnu/release/rusty-chat.exe /usr/local/bin/rusty-chat.exe
+# Копируем бинарный файл из предыдущего этапа
+COPY --from=builder /usr/src/app/target/release/rusty-chat /usr/local/bin/
 
-EXPOSE 8001
+# Устанавливаем права на выполнение
+RUN chmod +x /usr/local/bin/rusty-chat
 
-# CMD ["/usr/local/bin/rusty-chat"]
+# Указываем команду для запуска контейнера
+CMD ["rusty-chat"]
