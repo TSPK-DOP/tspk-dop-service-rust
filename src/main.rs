@@ -1,20 +1,16 @@
 use actix_web::{middleware::Logger, web, App, HttpServer};
-use routes::handlers;
 use sea_orm::{Database, DatabaseConnection};
 use utils::app_state::AppState;
-use dotenvy::dotenv; 
-use env_logger; 
 mod utils;
 mod routes;
-use actix_files::Files;
 use migration::{Migrator, MigratorTrait};
-
-
 
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-
+    if std::env::var_os("RUST_LOG").is_none() {
+            std::env::set_var("RUST_LOG", "actix_web=info");
+        }
     
     
     let port = (*utils::constants::PORT).clone();
