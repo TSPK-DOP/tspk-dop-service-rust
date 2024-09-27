@@ -1,4 +1,4 @@
-    use actix_web::{middleware::Logger, web, App, HttpServer};
+use actix_web::{middleware::Logger, web, App, HttpServer};
 use routes::handlers;
 use sea_orm::{Database, DatabaseConnection};
 use utils::app_state::AppState;
@@ -30,8 +30,6 @@ async fn main() -> std::io::Result<()> {
         .wrap(Logger::default())
         .configure(routes::home_routes::config)
         .configure(routes::auth_routes::config)
-        .service(Files::new("/static", "static").show_files_listing())
-        .service(handlers::home_handler::hello)
     })
     .bind((address, port))?
     .run()

@@ -11,7 +11,9 @@ services:
       - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  
+    networks:
+      - app-network # Добавляем сеть для db
+
   rusty-chat:
     build: .
     depends_on:
@@ -23,7 +25,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - app-network
+      - app-network # Явное указание сети для приложения
 
 volumes:
   db-data:
