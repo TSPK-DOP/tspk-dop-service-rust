@@ -1,41 +1,43 @@
-# Используем официальный образ Rust для сборки
+# Мультиэтапная сборка для минимального образа
+# Этап 1: Сборка приложения
 FROM rust:1.74 as builder
-
-# Устанавливаем необходимые зависимости для работы с PostgreSQL и другими библиотеками
 RUN apt-get update && apt-get install -y libpq-dev pkg-config build-essential
 
-# Устанавливаем рабочую директорию для проекта
+# Устанавливаем рабочую директорию
 WORKDIR /usr/src/app
 
-# Копируем Cargo.toml и Cargo.lock отдельно для кэширования зависимостей
+# Копируем только Cargo.toml и Cargo.lock для кэширования зависимостей
 COPY Cargo.toml Cargo.lock ./
 
-# Копируем остальные необходимые файлы для проекта
-COPY entity ./entity
-COPY migration ./migration
-# Создаем пустой бинарник для кэширования зависимостей
-RUN mkdir src && echo "fn main() {}" > src/main.rs
+# Копируем все зависимости для кэширования
+COPY entity/Cargo.toml ./entity/
+COPY migration/Cargo.toml ./migration/
 
-# Сборка зависимостей
-RUN cargo build --release
+# Устанавливаем зависимости
+RUN cargo fetch
 
-# Копируем файлы проекта
+# Копируем весь код проекта
 COPY . .
 
 # Сборка релизного бинарного файла
 RUN cargo build --release
 
-# Используем минимальный образ для финальной сборки
+# Этап 2: Минимальный образ для запуска приложения
 FROM debian:bookworm-slim 
 
-# Устанавливаем необходимые зависимости для работы с бинарником
-RUN apt-get update && apt-get install -y libpq-dev ca-certificates && rm -rf /var/lib/apt/lists/*
+# Установка зависимостей для PostgreSQL
+RUN apt-get update && apt-get install -y libpq-dev
 
-# Устанавливаем рабочую директорию
-WORKDIR /usr/src/app
+# Копируем бинарный файл из предыдущего этапа
+COPY --from=builder /usr/src/app/target/release/service /usr/local/bin/
 
-# Копируем собранный бинарный файл из предыдущего этапа
-COPY --from=builder /usr/src/app/target/release/service .
+# Устанавливаем права на выполнение бинарного файла
+RUN chmod +x /usr/local/bin/service
 
-# Указываем команду для запуска контейнера
-CMD ["./service"]
+# Установка переменных окружения для подключения к базе данных
+ENV DATABASE_URL=postgres://pweb:pweb@localhost/education
+ENV PORT=8080
+ENV ADDRESS=0.0.0.0
+
+# Указываем команду для запуска приложения
+CMD ["service"]

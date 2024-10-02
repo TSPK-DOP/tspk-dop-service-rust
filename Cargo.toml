@@ -25,4 +25,3 @@ jsonwebtoken = "9.3.0"
 name = "service"
 path = "src/main.rs"
 
-

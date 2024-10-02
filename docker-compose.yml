@@ -1,29 +1,32 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:14
     environment:
       POSTGRES_USER: pweb
       POSTGRES_PASSWORD: pweb
-      POSTGRES_DB: education_service_db
+      POSTGRES_DB: education
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+      
     networks:
-      - app-network 
-
-  service1:
+          - app-network
+  
+  service:
     build: .
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://pweb:pweb@db/education_service_db
+      DATABASE_URL: postgres://pweb:pweb@db/education
       PORT: 8080
       ADDRESS: 0.0.0.0
     ports:
       - "8080:8080"
     networks:
-      - app-network 
+      - app-network
 
 volumes:
   db-data:
