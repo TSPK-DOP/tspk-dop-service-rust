@@ -6,20 +6,20 @@ services:
     environment:
       POSTGRES_USER: pweb
       POSTGRES_PASSWORD: pweb
-      POSTGRES_DB: education_service_db
+      POSTGRES_DB: chat
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
-      - app-network 
+      - app-network # Добавляем сеть для db
 
-  service1:
+  rusty-chat:
     build: .
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://pweb:pweb@db/education_service_db
+      DATABASE_URL: postgres://pweb:pweb@db/chat
       PORT: 8080
       ADDRESS: 0.0.0.0
     ports:
