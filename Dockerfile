@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y libpq-dev ca-certificates && rm -rf /va
 WORKDIR /usr/src/app
 
 # Копируем собранный бинарный файл из предыдущего этапа
-COPY --from=builder /usr/src/app/target/release/rusty-chat .
+COPY --from=builder /usr/src/app/target/release/service .
 
 # Указываем команду для запуска контейнера
-CMD ["./rusty-chat"]
+CMD ["./service"]

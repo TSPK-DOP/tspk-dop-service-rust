@@ -1,21 +1,20 @@
-use actix_web::{middleware::Logger, web, App, HttpServer};
+use actix_web::{middleware::Logger, App, HttpServer};
 use dotenvy::dotenv;
-use sea_orm::{Database, DatabaseConnection};
-use utils::app_state::AppState;
+use sea_orm::Database;
 mod utils;
 mod routes;
 use migration::{Migrator, MigratorTrait};
+pub mod config;
+mod handlers;
 
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     println!("Starting rusty-chat...");
 
-    if std::env::var_os("RUST_LOG").is_none() {
-        std::env::set_var("RUST_LOG", "actix_web=info");
-    }
-
-    dotenv().ok();  // Если вы используете dotenv для загрузки переменных окружения
+    std::env::set_var("RUST_LOG", "sea_orm=debug,actix_web=info");
+    
+    dotenv().ok();  
     env_logger::init();
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "8080".to_string()).parse().unwrap();
@@ -33,6 +32,7 @@ async fn main() -> std::io::Result<()> {
             .data(db.clone())
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
+            .configure(routes::auth_routes::config)
     })
     .bind((address.as_str(), port))?
     .run()

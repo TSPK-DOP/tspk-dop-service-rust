@@ -985,6 +985,7 @@ dependencies = [
 name = "entity"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "sea-orm",
  "serde",
 ]
@@ -2278,25 +2279,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rusty-chat"
-version = "0.1.0"
-dependencies = [
- "actix-files",
- "actix-web",
- "chrono",
- "dotenvy",
- "entity",
- "env_logger",
- "jsonwebtoken",
- "lazy_static",
- "migration",
- "sea-orm",
- "serde",
- "serde_json",
- "sha256",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2531,6 +2513,25 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "service"
+version = "0.1.0"
+dependencies = [
+ "actix-files",
+ "actix-web",
+ "chrono",
+ "dotenvy",
+ "entity",
+ "env_logger",
+ "jsonwebtoken",
+ "lazy_static",
+ "migration",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "sha256",
 ]
 
 [[package]]

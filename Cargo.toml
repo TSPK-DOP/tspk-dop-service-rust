@@ -1,5 +1,5 @@
 [package]
-name = "rusty-chat"
+name = "service"
 version = "0.1.0"
 edition = "2021"
 
@@ -22,7 +22,7 @@ sha256 = "1.5.0"
 jsonwebtoken = "9.3.0"
 
 [[bin]]
-name = "rusty-chat"
+name = "service"
 path = "src/main.rs"
 
 

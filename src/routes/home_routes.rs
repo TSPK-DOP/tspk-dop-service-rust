@@ -1,9 +1,9 @@
 use actix_web::web;
-use super::handlers;
+use crate::handlers::home_handler;
 
 
 pub fn config(config: &mut web::ServiceConfig) {
     config
-        .service(handlers::home_handler::bye);
+        .service(home_handler::bye);
 
 }
