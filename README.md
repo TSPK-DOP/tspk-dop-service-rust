@@ -1,3 +1,11 @@
-<h1>Actix project</h1>
+# Rust service
 
-<h4>docker compose up --build</h4>
+## Docker
+
+To run a project using Docker:
+
+```bash
+docker compose up --build
+```
+
+---
