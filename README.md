@@ -2,7 +2,7 @@
 
 ## Docker
 
-To run a project using Docker:
+To run a service using Docker:
 
 ```bash
 docker compose up --build
