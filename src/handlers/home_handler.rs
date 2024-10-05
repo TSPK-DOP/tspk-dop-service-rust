@@ -11,5 +11,5 @@ pub async fn echo(req_body: String) -> impl Responder {
 
 #[get("/goodbye")]
 pub async fn bye() -> impl Responder {
-    api_response::ApiResponse::new(200, "BYE".to_string())
+    api_response::ApiResponse::new(200, "hello".to_string())
 }
