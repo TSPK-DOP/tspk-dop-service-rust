@@ -22,4 +22,4 @@ jobs:
           script: |
             pwd
             cd /var/www/microservice1/tspk-dop-service-rust
-            bash deploy.bash
+            bash ./deploy.bash
