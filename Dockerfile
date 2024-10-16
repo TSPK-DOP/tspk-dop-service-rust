@@ -35,7 +35,7 @@ COPY --from=builder /usr/src/app/target/release/service /usr/local/bin/
 RUN chmod +x /usr/local/bin/service
 
 # Установка переменных окружения для подключения к базе данных
-ENV DATABASE_URL=postgres://pweb:pweb@localhost/education
+ENV DATABASE_URL=postgres://pweb:pweb@localhost/new_education
 ENV PORT=8080
 ENV ADDRESS=0.0.0.0
 

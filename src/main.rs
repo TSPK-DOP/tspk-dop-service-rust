@@ -1,5 +1,6 @@
 use actix_web::{middleware::Logger, App, HttpServer};
 use dotenvy::dotenv;
+use handlers::teacher;
 use sea_orm::Database;
 mod utils;
 mod routes;
@@ -33,6 +34,8 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
             .configure(routes::auth_routes::config)
+            .configure(routes::teacher_routes::config)
+
     })
     .bind((address.as_str(), port))?
     .run()

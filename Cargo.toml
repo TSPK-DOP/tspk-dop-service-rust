@@ -7,7 +7,7 @@ edition = "2021"
 members = [".", "entity", "migration"]
 
 [dependencies]
-entity = { path = "entity" }
+entity = { path = "./entity" }
 migration = { path = "migration" } 
 dotenvy = "0.15"
 serde = { version = "1.0", features = ["derive"] }
