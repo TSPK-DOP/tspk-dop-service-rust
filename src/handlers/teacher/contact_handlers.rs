@@ -93,7 +93,7 @@ pub async fn update_additional_contact(
             user.additional_contact = Set(Some(req.additional_contact.clone().unwrap()));
             match user.update(db.get_ref()).await {
                 Ok(update_user) => HttpResponse::Ok().body(format!(
-                    "Доп. контакт добавлен"
+                    "Доп. контакт обновлен"
                 )),
                 Err(_) =>HttpResponse::InternalServerError().body("Ошибка при обновлении"),
                 
