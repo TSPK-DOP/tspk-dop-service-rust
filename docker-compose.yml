@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: pweb
       POSTGRES_PASSWORD: pweb
-      POSTGRES_DB: new_education
+      POSTGRES_DB: education_service_db
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://pweb:pweb@db/new_education
+      DATABASE_URL: postgres://pweb:pweb@db/education_service_db
       PORT: 8080
       ADDRESS: 0.0.0.0
     ports:
